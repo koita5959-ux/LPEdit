@@ -9,6 +9,7 @@
 $theme_uri = get_template_directory_uri();
 $select_url = home_url('/select/');
 $guide_url = home_url('/guide/');
+$template_url = home_url('/template/');
 $option_url = home_url('/option/');
 $terms_url = home_url('/terms/');
 ?>
@@ -16,12 +17,13 @@ $terms_url = home_url('/terms/');
     <div class="footer-inner">
         <nav class="footer-nav">
             <a href="<?php echo esc_url($guide_url); ?>">使い方ガイド</a>
+            <a href="<?php echo esc_url($template_url); ?>" target="_blank" rel="noopener noreferrer">テンプレート</a>
             <a href="<?php echo esc_url($option_url); ?>">オプション</a>
             <a href="<?php echo esc_url($terms_url); ?>">利用規約</a>
             <a href="<?php echo esc_url($select_url); ?>">作成・修正</a>
         </nav>
         <div class="footer-info">
-            <p class="footer-company">株式会社メディアハウス</p>
+            <p class="footer-company"><a href="https://media-house.jp" target="_blank" rel="noopener noreferrer">株式会社メディアハウス</a></p>
             <p class="footer-address">〒502-0932 岐阜県岐阜市則武中2-16-1</p>
             <p class="footer-contact">
                 <span class="footer-badge-wrap"><span class="footer-badge">Tel</span><a href="tel:0582955234">058-295-5234</a></span>
@@ -62,8 +64,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (e) {}
     }
 
-    // ページ表示
-    sendLog('ページ表示');
+    // トップページのみ「トップページ表示」通知を送信
+    if (pageName === 'トップページ') {
+        sendLog('トップページ表示');
+    }
 
     // フッター: Tel・HP・Mailリンク
     document.querySelectorAll('.footer-contact a').forEach(function(a) {
@@ -92,6 +96,14 @@ document.addEventListener('DOMContentLoaded', function() {
             sendLog('ヘッダー・' + this.textContent.trim());
         });
     });
+
+    // フッター: 株式会社メディアハウス（社名リンク）
+    var companyLink = document.querySelector('.footer-company a');
+    if (companyLink) {
+        companyLink.addEventListener('click', function() {
+            sendLog('フッター・メディアハウス');
+        });
+    }
 
     // ヘッダー: ブランドロゴ
     var brandLink = document.querySelector('.header-brand a');

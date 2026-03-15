@@ -403,9 +403,9 @@
                 </form>
 
                 <div class="mt-6">
-                    <!-- 固定CTA -->
-                    <div id="bottom-cta" class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pt-3 px-4 transition-all duration-500 transform translate-y-full opacity-0">
-                        <div class="container mx-auto max-w-md md:max-w-2xl flex gap-3 pb-4 pointer-events-auto">
+                    <!-- 固定CTA（スマホのみ表示。PCはフッター内に配置） -->
+                    <div id="bottom-cta" class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pt-3 px-4 transition-all duration-500 transform translate-y-full opacity-0 md:hidden">
+                        <div class="container mx-auto max-w-md flex gap-3 pb-4 pointer-events-auto">
                             <a id="bottom-cta-email" class="flex-1 bg-primary font-bold py-3 rounded-lg flex flex-col items-center justify-center shadow-xl hover:opacity-80 transition-all text-center"
                                 style="color:<?php echo esc_attr($text_on_primary); ?>" href="#contact">
                                 <?php if (!empty($bottom_bar_email_label)) : ?>
@@ -416,7 +416,7 @@
                                     <?php echo esc_html($bottom_bar_email_text); ?>
                                 </div>
                             </a>
-                            <a class="flex-1 bg-secondary font-bold py-3 rounded-lg flex flex-col items-center justify-center shadow-xl hover:opacity-80 transition-all text-center"
+                            <a id="bottom-cta-phone" class="flex-1 bg-secondary font-bold py-3 rounded-lg flex flex-col items-center justify-center shadow-xl hover:opacity-80 transition-all text-center"
                                 style="color:<?php echo esc_attr($text_on_secondary); ?>" href="tel:<?php echo esc_attr($phone); ?>">
                                 <?php if (!empty($bottom_bar_phone_label)) : ?>
                                     <span class="text-xs font-normal opacity-90 mb-0.5"><?php echo esc_html($bottom_bar_phone_label); ?></span>
@@ -434,7 +434,7 @@
     </main>
 
     <!-- フッター -->
-    <footer class="py-10 px-4 pb-28 text-white" style="background-color:#333">
+    <footer class="py-10 px-4 pb-28 md:pb-10 text-white" style="background-color:#333">
         <div class="max-w-md md:max-w-4xl mx-auto">
             <div class="text-center mb-6">
                 <h2 class="text-xl font-bold flex items-center justify-center gap-2 mb-2">
@@ -463,6 +463,29 @@
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
+            <!-- PC用CTA（フッター内に表示） -->
+            <div class="hidden md:flex justify-center gap-4 mb-6">
+                <a id="footer-cta-email" class="bg-primary font-bold py-3 px-8 rounded-lg flex flex-col items-center justify-center shadow-xl hover:opacity-80 transition-all text-center"
+                    style="color:<?php echo esc_attr($text_on_primary); ?>" href="#contact">
+                    <?php if (!empty($bottom_bar_email_label)) : ?>
+                        <span class="text-xs font-normal opacity-90 mb-0.5"><?php echo esc_html($bottom_bar_email_label); ?></span>
+                    <?php endif; ?>
+                    <span class="flex items-center text-sm leading-none">
+                        <span class="material-icons text-lg mr-1">mail</span>
+                        <?php echo esc_html($bottom_bar_email_text); ?>
+                    </span>
+                </a>
+                <a id="footer-cta-phone" class="bg-secondary font-bold py-3 px-8 rounded-lg flex flex-col items-center justify-center shadow-xl hover:opacity-80 transition-all text-center"
+                    style="color:<?php echo esc_attr($text_on_secondary); ?>" href="tel:<?php echo esc_attr($phone); ?>">
+                    <?php if (!empty($bottom_bar_phone_label)) : ?>
+                        <span class="text-xs font-normal opacity-90 mb-0.5"><?php echo esc_html($bottom_bar_phone_label); ?></span>
+                    <?php endif; ?>
+                    <span class="flex items-center text-sm leading-none">
+                        <span class="material-icons text-lg mr-1">phone</span>
+                        <?php echo esc_html($bottom_bar_phone_text); ?>
+                    </span>
+                </a>
+            </div>
             <div class="text-center text-xs text-gray-500 pt-4 border-t border-gray-700">
                 <p>&copy; <?php echo esc_html($copyright_year); ?> <?php echo esc_html($company_name); ?> All Rights Reserved.</p>
             </div>
@@ -649,6 +672,40 @@
                 sendPublicAccessLog('メール相談・クリック');
             });
         }
+
+        // ボトムCTA「電話相談」クリック通知
+        var bottomCtaPhone = document.getElementById('bottom-cta-phone');
+        if (bottomCtaPhone) {
+            bottomCtaPhone.addEventListener('click', function() {
+                sendPublicAccessLog('電話相談・クリック');
+            });
+        }
+
+        // フッターCTA「メール相談」クリック通知（PC用）
+        var footerCtaEmail = document.getElementById('footer-cta-email');
+        if (footerCtaEmail) {
+            footerCtaEmail.addEventListener('click', function() {
+                sendPublicAccessLog('メール相談・クリック');
+            });
+        }
+
+        // フッターCTA「電話相談」クリック通知（PC用）
+        var footerCtaPhone = document.getElementById('footer-cta-phone');
+        if (footerCtaPhone) {
+            footerCtaPhone.addEventListener('click', function() {
+                sendPublicAccessLog('電話相談・クリック');
+            });
+        }
+
+        // ページ内アンカーリンク（#contact等）クリック通知
+        document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+            // ボトムCTAのメール相談は上で個別処理済みなのでスキップ
+            if (a.id === 'bottom-cta-email') return;
+            a.addEventListener('click', function() {
+                var hash = this.getAttribute('href');
+                sendPublicAccessLog('ページ内移動・' + hash);
+            });
+        });
     </script>
 
 </body>
