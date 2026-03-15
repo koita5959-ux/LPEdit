@@ -113,6 +113,7 @@ function lp_editor_handle_contact_form()
     $success_message = get_field('form_success_message', $page_id) ?: "お問い合わせありがとうございます。\n内容を確認次第、ご連絡いたします。";
     $company_name    = get_field('company_name', $page_id) ?: get_bloginfo('name');
     $lp_url          = get_permalink($page_id) ?: '';
+    $lp_slug         = $post->post_name ?? '';
 
     if (empty($recipient_email) || ! is_email($recipient_email)) {
         set_transient('lp_contact_error_' . $page_id, '送信先が設定されていません。', 60);
@@ -156,7 +157,9 @@ function lp_editor_handle_contact_form()
     $owner_body .= "【{$company_name}】お問い合わせがありました。\n\n";
     $owner_body .= $fields_body;
     if (! empty($lp_url)) {
-        $owner_body .= "【対象LP】\n" . $lp_url . "\n\n";
+        $owner_body .= "【対象LP】\n";
+        $owner_body .= "　ID: " . $lp_slug . "\n";
+        $owner_body .= "　URL: " . $lp_url . "\n\n";
     }
     $owner_body .= lp_editor_get_form_mail_signature_block($company_name, $lp_url, $recipient_email);
 

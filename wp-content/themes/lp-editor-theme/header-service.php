@@ -11,6 +11,7 @@ $select_url = home_url('/select/');
 $guide_url = home_url('/guide/');
 $terms_url = home_url('/terms/');
 $template_url = home_url('/template/');
+$option_url = home_url('/option/');
 
 // サイト設定
 $site_name = get_bloginfo('name');
@@ -100,6 +101,7 @@ $current_page = isset($args['current']) ? $args['current'] : '';
         <nav class="header-nav" id="headerNav">
             <a href="<?php echo esc_url($guide_url); ?>" class="<?php echo ($current_page === 'guide') ? 'is-current' : ''; ?>">使い方ガイド</a>
             <a href="<?php echo esc_url($template_url); ?>" class="<?php echo ($current_page === 'template') ? 'is-current' : ''; ?>" target="_blank" rel="noopener noreferrer">テンプレート</a>
+            <a href="<?php echo esc_url($option_url); ?>" class="<?php echo ($current_page === 'option') ? 'is-current' : ''; ?>">オプション</a>
             <a href="<?php echo esc_url($terms_url); ?>" class="<?php echo ($current_page === 'terms') ? 'is-current' : ''; ?>">利用規約</a>
             <a href="<?php echo esc_url($select_url); ?>" class="nav-cta <?php echo ($current_page === 'select') ? 'is-current' : ''; ?>">作成 / 修正</a>
         </nav>

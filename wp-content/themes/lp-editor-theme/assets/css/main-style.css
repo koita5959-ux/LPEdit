@@ -232,6 +232,26 @@ img {
   transform: translateY(-8px) rotate(-45deg);
 }
 
+/* --- SP専用改行 --- */
+.sp-only {
+  display: inline;
+}
+
+.preview-heading {
+  font-size: 1.7rem;
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .sp-only {
+    display: none;
+  }
+}
+
 /* ================================================
    ヒーロー表示切り替え
    デフォルト: 両方非表示（JS判定前のちらつき防止）
@@ -554,6 +574,94 @@ img {
   left: 100%;
 }
 
+/* --- CTA 2ボタン（3Dスタイル） --- */
+.hero-cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.cta-btn-3d {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.3;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.cta-btn-3d__label {
+  font-size: 0.88rem;
+  font-weight: 500;
+  opacity: 0.85;
+  margin-bottom: 2px;
+}
+
+.cta-btn-3d__main {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+/* オプションボタン */
+.cta-btn-option {
+  background: linear-gradient(180deg, #4a6a8a 0%, #3a5676 50%, #2e4a68 100%);
+  color: #fff;
+  border: 2px solid #2a4260;
+  box-shadow:
+    0 3px 0 #243a55,
+    0 5px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.cta-btn-option:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 5px 0 #243a55,
+    0 7px 14px rgba(0, 0, 0, 0.25);
+}
+
+.cta-btn-option:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 1px 0 #243a55,
+    0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* 作成ボタン */
+.cta-btn-create {
+  background: linear-gradient(180deg, #3d5d80 0%, #2f4f6f 50%, #254565 100%);
+  color: #fff;
+  border: 2px solid #1f3d5a;
+  box-shadow:
+    0 3px 0 #1a3550,
+    0 5px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.cta-btn-create:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 5px 0 #1a3550,
+    0 7px 14px rgba(0, 0, 0, 0.25);
+}
+
+.cta-btn-create:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 1px 0 #1a3550,
+    0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
 /* --- スクロール誘導テキスト --- */
 .hero-scroll {
   margin-top: 20px;
@@ -564,6 +672,12 @@ img {
     1px -1px 0 #fff,
     -1px 1px 0 #fff,
     1px 1px 0 #fff;
+}
+
+.hero-scroll--wide {
+  font-size: 1.05rem;
+  margin-top: 24px;
+  text-align: center;
 }
 
 /* ================================================
@@ -946,6 +1060,81 @@ img {
     0 1px 0 #b85d0a,
     0 2px 8px rgba(232, 132, 26, 0.4);
   transform: translateY(2px);
+}
+
+/* --- CTA下部 2ボタン --- */
+.cta-section__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+  margin: 20px auto 0;
+}
+
+.cta-bottom-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.3;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.cta-bottom-btn__label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  opacity: 0.85;
+  margin-bottom: 2px;
+}
+
+.cta-bottom-btn__main {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.cta-bottom-option {
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.08) 100%);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.4);
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.15);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.cta-bottom-option:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.12) 100%);
+  box-shadow: 0 5px 0 rgba(0,0,0,0.2), 0 7px 14px rgba(0,0,0,0.2);
+}
+
+.cta-bottom-option:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cta-bottom-create {
+  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.15) 100%);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.55);
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.15);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.cta-bottom-create:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.2) 100%);
+  box-shadow: 0 5px 0 rgba(0,0,0,0.2), 0 7px 14px rgba(0,0,0,0.2);
+}
+
+.cta-bottom-create:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .cta-section__note {
@@ -1360,6 +1549,25 @@ img {
     padding: 36px 40px 48px;
   }
 
+  .hero-cta-buttons {
+    flex-direction: row;
+    max-width: 680px;
+    gap: 20px;
+  }
+
+  .hero-cta-buttons .cta-btn-3d {
+    flex: 1;
+    padding: 12px 24px;
+  }
+
+  .cta-btn-3d__label {
+    font-size: 0.9rem;
+  }
+
+  .cta-btn-3d__main {
+    font-size: 1.2rem;
+  }
+
   .cta-button {
     margin-top: 36px;
   }
@@ -1457,6 +1665,21 @@ img {
 
   .cta-section__copy {
     font-size: 1.6rem;
+  }
+
+  .cta-section__buttons {
+    flex-direction: row;
+    max-width: 640px;
+    gap: 16px;
+  }
+
+  .cta-section__buttons .cta-bottom-btn {
+    flex: 1;
+    padding: 14px 24px;
+  }
+
+  .cta-bottom-btn__main {
+    font-size: 1.2rem;
   }
 
   /* --- サブページ共通 --- */

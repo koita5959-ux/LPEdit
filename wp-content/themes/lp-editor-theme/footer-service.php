@@ -9,12 +9,14 @@
 $theme_uri = get_template_directory_uri();
 $select_url = home_url('/select/');
 $guide_url = home_url('/guide/');
+$option_url = home_url('/option/');
 $terms_url = home_url('/terms/');
 ?>
 <footer class="footer">
     <div class="footer-inner">
         <nav class="footer-nav">
             <a href="<?php echo esc_url($guide_url); ?>">使い方ガイド</a>
+            <a href="<?php echo esc_url($option_url); ?>">オプション</a>
             <a href="<?php echo esc_url($terms_url); ?>">利用規約</a>
             <a href="<?php echo esc_url($select_url); ?>">作成・修正</a>
         </nav>
@@ -38,21 +40,66 @@ if ($access_log_page_name !== null) :
 ?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    try {
-        fetch('<?php echo esc_url(rest_url('lp-editor/v1/access-log')); ?>', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-LP-Nonce': '<?php echo esc_js(wp_create_nonce('lp_editor_public_api')); ?>'
-            },
-            body: JSON.stringify({
-                action: 'ページ表示',
-                page_name: '<?php echo esc_js($access_log_page_name); ?>',
-                screen_size: screen.width + 'x' + screen.height,
-                window_size: window.innerWidth + 'x' + window.innerHeight
-            })
-        }).catch(function() {});
-    } catch (e) {}
+    var restUrl = '<?php echo esc_url(rest_url('lp-editor/v1/access-log')); ?>';
+    var nonce = '<?php echo esc_js(wp_create_nonce('lp_editor_public_api')); ?>';
+    var pageName = '<?php echo esc_js($access_log_page_name); ?>';
+
+    function sendLog(actionName) {
+        try {
+            fetch(restUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-LP-Nonce': nonce
+                },
+                body: JSON.stringify({
+                    action: actionName,
+                    page_name: pageName,
+                    screen_size: screen.width + 'x' + screen.height,
+                    window_size: window.innerWidth + 'x' + window.innerHeight
+                })
+            }).catch(function() {});
+        } catch (e) {}
+    }
+
+    // ページ表示
+    sendLog('ページ表示');
+
+    // フッター: Tel・HP・Mailリンク
+    document.querySelectorAll('.footer-contact a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            var href = this.getAttribute('href') || '';
+            if (href.indexOf('tel:') === 0) {
+                sendLog('フッター・Tel');
+            } else if (href.indexOf('mailto:') === 0) {
+                sendLog('フッター・Mail');
+            } else if (href.indexOf('media-house.jp') !== -1) {
+                sendLog('フッター・HP');
+            }
+        });
+    });
+
+    // フッター: ナビリンク
+    document.querySelectorAll('.footer-nav a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            sendLog('フッター・' + this.textContent.trim());
+        });
+    });
+
+    // ヘッダー: ナビリンク
+    document.querySelectorAll('.header-nav a').forEach(function(a) {
+        a.addEventListener('click', function() {
+            sendLog('ヘッダー・' + this.textContent.trim());
+        });
+    });
+
+    // ヘッダー: ブランドロゴ
+    var brandLink = document.querySelector('.header-brand a');
+    if (brandLink) {
+        brandLink.addEventListener('click', function() {
+            sendLog('ヘッダー・ロゴ');
+        });
+    }
 });
 </script>
 <?php endif; ?>

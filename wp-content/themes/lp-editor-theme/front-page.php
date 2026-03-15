@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 }
 
 get_header('service', array(
-    'title' => '自作LP無料生成',
+    'title' => '自作LP生成',
     'description' => '指定メールアドレスでテンプレートをカスタマイズして自作LPを作成。メール問い合わせ機能にも対応、アカウント登録不要で公開できます。',
     'current' => 'home'
 ));
@@ -65,15 +65,24 @@ $select_url = home_url('/select/');
         </div>
     </section>
 
-    <!-- CTA（白背景エリア・共通） -->
+    <!-- CTA（白背景エリア） -->
     <section class="hero-cta">
-        <a href="<?php echo esc_url($select_url); ?>" class="cta-button">作成・修正画面へ</a>
-        <p class="hero-scroll">詳しい説明は以下をご覧ください</p>
+        <div class="hero-cta-buttons">
+            <a href="<?php echo esc_url(home_url('/option/')); ?>" class="cta-btn-3d cta-btn-option">
+                <span class="cta-btn-3d__label">オプションサービスで</span>
+                <span class="cta-btn-3d__main">制作もお任せ</span>
+            </a>
+            <a href="<?php echo esc_url($select_url); ?>" class="cta-btn-3d cta-btn-create">
+                <span class="cta-btn-3d__label">ご自分での登録は無料で</span>
+                <span class="cta-btn-3d__main">作成・修正画面へ</span>
+            </a>
+        </div>
+        <p class="hero-scroll hero-scroll--wide">詳しい説明は以下をご覧ください</p>
     </section>
 
     <!-- ===== テンプレートプレビュー ===== -->
     <section class="template-preview">
-        <h2 class="section-title">こんなLPが作れます</h2>
+        <h2 class="preview-heading">スマホ・PC両用<br class="sp-only">ページが作れる</h2>
         <div class="preview-image-wrap">
             <img src="<?php echo esc_url($theme_uri . '/assets/images/spp01.png'); ?>" alt="テンプレートLPのサンプル画面" class="preview-img">
         </div>
@@ -206,10 +215,87 @@ $select_url = home_url('/select/');
     <!-- ===== CTA（再掲） ===== -->
     <section class="cta-section">
         <p class="cta-section__copy">まずは触ってみてください</p>
-        <a href="<?php echo esc_url($select_url); ?>" class="cta-button">作成・修正画面へ</a>
+        <div class="cta-section__buttons">
+            <a href="<?php echo esc_url(home_url('/option/')); ?>" class="cta-bottom-btn cta-bottom-option">
+                <span class="cta-bottom-btn__label">オプションサービスで</span>
+                <span class="cta-bottom-btn__main">制作もお任せ</span>
+            </a>
+            <a href="<?php echo esc_url($select_url); ?>" class="cta-bottom-btn cta-bottom-create">
+                <span class="cta-bottom-btn__label">ご自分での登録は無料で</span>
+                <span class="cta-bottom-btn__main">作成・修正画面へ</span>
+            </a>
+        </div>
         <p class="cta-section__note">※編集はPCでの操作を推奨しています</p>
     </section>
 
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // FAQ開閉の通知
+    document.querySelectorAll('.faq-item').forEach(function(item) {
+        item.addEventListener('toggle', function() {
+            if (this.open) {
+                var question = this.querySelector('.faq-question');
+                var text = question ? question.textContent.trim() : '';
+                try {
+                    fetch('<?php echo esc_url(rest_url('lp-editor/v1/access-log')); ?>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-LP-Nonce': '<?php echo esc_js(wp_create_nonce('lp_editor_public_api')); ?>'
+                        },
+                        body: JSON.stringify({
+                            action: 'FAQ開く - ' + text,
+                            page_name: 'トップページ',
+                            screen_size: screen.width + 'x' + screen.height,
+                            window_size: window.innerWidth + 'x' + window.innerHeight
+                        })
+                    }).catch(function() {});
+                } catch (e) {}
+            }
+        });
+    });
+
+    // CTAボタンの通知（3Dボタン + 下部CTA共通）
+    function sendTopLog(actionName) {
+        try {
+            fetch('<?php echo esc_url(rest_url('lp-editor/v1/access-log')); ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-LP-Nonce': '<?php echo esc_js(wp_create_nonce('lp_editor_public_api')); ?>'
+                },
+                body: JSON.stringify({
+                    action: actionName,
+                    page_name: 'トップページ',
+                    screen_size: screen.width + 'x' + screen.height,
+                    window_size: window.innerWidth + 'x' + window.innerHeight
+                })
+            }).catch(function() {});
+        } catch (e) {}
+    }
+
+    var optionBtn = document.querySelector('.cta-btn-option');
+    if (optionBtn) {
+        optionBtn.addEventListener('click', function() { sendTopLog('オプション・制作お任せ'); });
+    }
+
+    var createBtn = document.querySelector('.cta-btn-create');
+    if (createBtn) {
+        createBtn.addEventListener('click', function() { sendTopLog('作成・修正画面へ'); });
+    }
+
+    var bottomOption = document.querySelector('.cta-bottom-option');
+    if (bottomOption) {
+        bottomOption.addEventListener('click', function() { sendTopLog('オプション・制作お任せ（下部）'); });
+    }
+
+    var bottomCreate = document.querySelector('.cta-bottom-create');
+    if (bottomCreate) {
+        bottomCreate.addEventListener('click', function() { sendTopLog('作成・修正画面へ（下部）'); });
+    }
+});
+</script>
 
 <?php get_footer('service'); ?>

@@ -594,7 +594,7 @@ async function saveData() {
 async function uploadImage(input, urlFieldId, idFieldId) {
     const file = input.files[0];
     if (!file) return;
-    sendAccessLog('画像アップロード');
+    sendAccessLog('ヒーロー画像アップ');
 
     const formData = new FormData();
     formData.append('file', file);
@@ -640,7 +640,7 @@ async function uploadImage(input, urlFieldId, idFieldId) {
 async function uploadListImage(input, urlFieldId, idFieldId) {
     const file = input.files[0];
     if (!file) return;
-    sendAccessLog('画像アップロード');
+    sendAccessLog('リスト画像アップ');
 
     const formData = new FormData();
     formData.append('file', file);
@@ -1292,7 +1292,7 @@ async function uploadIconImage(input) {
 
     const file = input.files?.[0];
     if (!file) return;
-    sendAccessLog('画像アップロード');
+    sendAccessLog('アイコン画像アップ');
 
     const formData = new FormData();
     formData.append('file', file);

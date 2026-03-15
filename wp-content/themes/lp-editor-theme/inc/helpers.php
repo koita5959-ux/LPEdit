@@ -275,7 +275,9 @@ function lp_editor_asset_url($relative_path)
     if (! lp_editor_is_dev_environment() && preg_match('/\.(css|js)$/', $relative_path)) {
         $relative_path = preg_replace('/\.(css|js)$/', '.min.$1', $relative_path);
     }
-    return $theme_uri . '/' . $relative_path;
+    $file_path = get_template_directory() . '/' . $relative_path;
+    $ver = file_exists($file_path) ? filemtime($file_path) : time();
+    return $theme_uri . '/' . $relative_path . '?v=' . $ver;
 }
 
 /**

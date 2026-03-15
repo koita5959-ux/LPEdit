@@ -107,6 +107,9 @@ function lp_editor_get_current_page_name()
     if ($template === 'page-guide.php' || is_page('guide')) {
         return '使い方ガイド';
     }
+    if ($template === 'page-option.php' || is_page('option')) {
+        return 'オプション';
+    }
     if ($template === 'page-terms.php' || is_page('terms')) {
         return '利用規約';
     }
@@ -146,8 +149,14 @@ function lp_editor_build_access_mail_body($page_name, $action, $context = array(
     $lp_id        = $context['lp_id'] ?? '';
     $email        = $context['email'] ?? '';
 
+    $request_url    = ($_SERVER['HTTP_HOST'] ?? '') . ($_SERVER['REQUEST_URI'] ?? '');
+    $accept_lang    = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '(不明)';
+    $is_https       = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'HTTPS' : 'HTTP';
+
     $body  = "ページアクセス通知\n";
     $body .= "━━━━━━━━━━━━━━━━━━━\n\n";
+    $body .= "【アクセスURL】\n";
+    $body .= "　" . $is_https . '://' . $request_url . "\n\n";
     $body .= "【アクセスページ】\n";
     $body .= "　" . $page_name . "\n\n";
     $body .= "【アクション】\n";
@@ -183,7 +192,11 @@ function lp_editor_build_access_mail_body($page_name, $action, $context = array(
     $body .= "【画面サイズ】\n";
     $body .= "　" . $screen_size . "\n\n";
     $body .= "【表示サイズ】\n";
-    $body .= "　" . $window_size . "\n";
+    $body .= "　" . $window_size . "\n\n";
+    $body .= "【言語設定】\n";
+    $body .= "　" . $accept_lang . "\n\n";
+    $body .= "【接続方式】\n";
+    $body .= "　" . $is_https . "\n";
 
     if ($email !== '') {
         $body .= "\n【送信先メールアドレス】\n";
@@ -195,17 +208,15 @@ function lp_editor_build_access_mail_body($page_name, $action, $context = array(
 
 /**
  * アクセス解析メールの件名を生成する
+ * 基準: 【LPedit】{タイムスタンプ} - {IP} - {アクション名}
  */
 function lp_editor_build_access_mail_subject($page_name, $action_name = '')
 {
     $ip       = function_exists('lp_editor_get_client_ip') ? lp_editor_get_client_ip() : ($_SERVER['REMOTE_ADDR'] ?? '');
     $datetime = date('Y-m-d H:i:s');
+    $action   = ($action_name !== '') ? $action_name : $page_name;
 
-    if ($action_name !== '') {
-        return '【LPedit】' . $datetime . ' - ' . $ip . ' - ' . $page_name . ' - ' . $action_name;
-    }
-
-    return '【LPedit】' . $datetime . ' - ' . $ip . ' - ' . $page_name;
+    return '【LPedit】' . $datetime . ' - ' . $ip . ' - ' . $action;
 }
 
 /**
@@ -213,8 +224,7 @@ function lp_editor_build_access_mail_subject($page_name, $action_name = '')
  */
 function lp_editor_send_access_log_mail($page_name, $action = 'ページ表示', $context = array())
 {
-    $action_name = ($action !== 'ページ表示') ? $action : '';
-    $subject = lp_editor_build_access_mail_subject($page_name, $action_name);
+    $subject = lp_editor_build_access_mail_subject($page_name, $action);
     $body    = lp_editor_build_access_mail_body($page_name, $action, $context);
 
     $headers = array('Content-Type: text/plain; charset=UTF-8');
