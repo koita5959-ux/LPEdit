@@ -1,0 +1,14 @@
+# WordPress uploads（メディアファイル。容量が大きいためGit管理外）
+wp-content/uploads/
+
+# バックアップファイル
+wp-content/ai1wm-backups/
+
+# WordPress アップグレード一時ファイル
+wp-content/upgrade/
+
+# OS・エディタ生成ファイル
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

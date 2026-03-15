@@ -1,0 +1,58 @@
+/**
+ * LP Editor - Landing Page Styles
+ * TailwindCSSと併用するカスタムスタイル
+ */
+
+/* ベーススタイル */
+body {
+    min-height: max(884px, 100dvh);
+}
+
+/* iOS Safe Area対応 */
+.pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* アニメーション */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(-25%);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+}
+
+.animate-bounce {
+    animation: bounce 1s infinite;
+}
+
+/* スムーズスクロール */
+html {
+    scroll-behavior: smooth;
+}
+
+/* フォーカスリング */
+:focus-visible {
+    outline: 2px solid var(--color-primary, #2563EB);
+    outline-offset: 2px;
+}
+
+/* プリントスタイル */
+@media print {
+    .fixed {
+        position: static !important;
+    }
+
+    .shadow-lg,
+    .shadow-md,
+    .shadow-sm {
+        box-shadow: none !important;
+    }
+
+    body {
+        font-size: 12pt;
+    }
+}

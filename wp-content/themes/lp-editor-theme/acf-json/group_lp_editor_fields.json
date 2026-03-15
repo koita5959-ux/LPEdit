@@ -1,0 +1,643 @@
+{
+    "key": "group_lp_editor_fields",
+    "title": "LP Editor フィールド",
+    "modified": 1771585684,
+    "fields": [
+        {
+            "key": "field_tab_basic",
+            "label": "基本情報",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_company_name",
+            "label": "会社名",
+            "name": "company_name",
+            "type": "text",
+            "required": 1,
+            "default_value": "",
+            "placeholder": "株式会社サンプル"
+        },
+        {
+            "key": "field_phone",
+            "label": "電話番号",
+            "name": "phone",
+            "type": "text",
+            "placeholder": "03-1234-5678"
+        },
+        {
+            "key": "field_address",
+            "label": "住所",
+            "name": "address",
+            "type": "text",
+            "placeholder": "東京都渋谷区..."
+        },
+        {
+            "key": "field_business_hours",
+            "label": "営業時間（短）",
+            "name": "business_hours",
+            "type": "text",
+            "placeholder": "9:00〜18:00"
+        },
+        {
+            "key": "field_business_hours_full",
+            "label": "営業時間（詳細）",
+            "name": "business_hours_full",
+            "type": "text",
+            "placeholder": "月〜金 9:00〜18:00（土日祝休み）"
+        },
+        {
+            "key": "field_copyright_year",
+            "label": "コピーライト年",
+            "name": "copyright_year",
+            "type": "text",
+            "default_value": "2026"
+        },
+        {
+            "key": "field_header_icon",
+            "label": "ヘッダーアイコン（Material Icons名）",
+            "name": "header_icon",
+            "type": "text",
+            "default_value": "bolt",
+            "instructions": "Material Iconsの名前を入力（例: bolt, construction, home）"
+        },
+        {
+            "key": "field_tab_colors",
+            "label": "配色",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_primary_color",
+            "label": "Primary カラー",
+            "name": "primary_color",
+            "type": "color_picker",
+            "default_value": "#2563EB"
+        },
+        {
+            "key": "field_secondary_color",
+            "label": "Secondary カラー",
+            "name": "secondary_color",
+            "type": "color_picker",
+            "default_value": "#10B981"
+        },
+        {
+            "key": "field_tab_hero",
+            "label": "ヒーロー",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_hero_image",
+            "label": "ヒーロー画像",
+            "name": "hero_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_hero_image_url",
+            "label": "ヒーロー画像URL（フォールバック）",
+            "name": "hero_image_url",
+            "type": "url",
+            "instructions": "メディアライブラリ外の画像URLを直接指定する場合に使用"
+        },
+        {
+            "key": "field_hero_badge",
+            "label": "バッジテキスト",
+            "name": "hero_badge",
+            "type": "text",
+            "placeholder": "地域No.1"
+        },
+        {
+            "key": "field_hero_title",
+            "label": "メインコピー",
+            "name": "hero_title",
+            "type": "textarea",
+            "rows": 3,
+            "instructions": "HTMLタグ使用可"
+        },
+        {
+            "key": "field_hero_subtitle",
+            "label": "サブコピー",
+            "name": "hero_subtitle",
+            "type": "textarea",
+            "rows": 2,
+            "instructions": "HTMLタグ使用可"
+        },
+        {
+            "key": "field_hero_cta_text",
+            "label": "CTAボタンテキスト",
+            "name": "hero_cta_text",
+            "type": "text",
+            "default_value": "お問い合わせはこちら"
+        },
+        {
+            "key": "field_tab_problems",
+            "label": "ポイント紹介",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_problems_title",
+            "label": "セクション見出し",
+            "name": "problems_title",
+            "type": "text",
+            "default_value": ""
+        },
+        {
+            "key": "field_problems",
+            "label": "ポイント一覧",
+            "name": "problems",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "ポイントを追加",
+            "sub_fields": [
+                {
+                    "key": "field_problem_image",
+                    "label": "画像",
+                    "name": "image",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "thumbnail"
+                },
+                {
+                    "key": "field_problem_image_url",
+                    "label": "画像URL（フォールバック）",
+                    "name": "image_url",
+                    "type": "url"
+                },
+                {
+                    "key": "field_problem_title",
+                    "label": "タイトル",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_problem_description",
+                    "label": "説明",
+                    "name": "description",
+                    "type": "textarea",
+                    "rows": 2
+                }
+            ]
+        },
+        {
+            "key": "field_tab_solution",
+            "label": "解決",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_solution_label",
+            "label": "ラベル",
+            "name": "solution_label",
+            "type": "text",
+            "placeholder": "そのお悩み解決します"
+        },
+        {
+            "key": "field_solution_title",
+            "label": "タイトル",
+            "name": "solution_title",
+            "type": "textarea",
+            "rows": 2,
+            "instructions": "HTMLタグ使用可"
+        },
+        {
+            "key": "field_solution_image",
+            "label": "画像",
+            "name": "solution_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_solution_image_url",
+            "label": "画像URL（フォールバック）",
+            "name": "solution_image_url",
+            "type": "url"
+        },
+        {
+            "key": "field_solution_image_caption",
+            "label": "画像キャプション",
+            "name": "solution_image_caption",
+            "type": "text"
+        },
+        {
+            "key": "field_solution_description",
+            "label": "説明文",
+            "name": "solution_description",
+            "type": "textarea",
+            "rows": 3,
+            "instructions": "HTMLタグ使用可"
+        },
+        {
+            "key": "field_tab_reasons",
+            "label": "選ばれる理由",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_reasons_title",
+            "label": "セクション見出し",
+            "name": "reasons_title",
+            "type": "text",
+            "default_value": "選ばれる理由",
+            "instructions": "HTMLタグ使用可"
+        },
+        {
+            "key": "field_reasons_cta_text",
+            "label": "CTAボタンテキスト",
+            "name": "reasons_cta_text",
+            "type": "text",
+            "default_value": "無料相談はこちら"
+        },
+        {
+            "key": "field_reasons",
+            "label": "理由一覧",
+            "name": "reasons",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "理由を追加",
+            "sub_fields": [
+                {
+                    "key": "field_reason_number",
+                    "label": "番号ラベル",
+                    "name": "number",
+                    "type": "text",
+                    "placeholder": "01"
+                },
+                {
+                    "key": "field_reason_image",
+                    "label": "画像",
+                    "name": "image",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "medium"
+                },
+                {
+                    "key": "field_reason_image_url",
+                    "label": "画像URL（フォールバック）",
+                    "name": "image_url",
+                    "type": "url"
+                },
+                {
+                    "key": "field_reason_title",
+                    "label": "タイトル",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_reason_description",
+                    "label": "説明",
+                    "name": "description",
+                    "type": "textarea",
+                    "rows": 2
+                }
+            ]
+        },
+        {
+            "key": "field_tab_flow",
+            "label": "ご依頼の流れ",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_flow_title",
+            "label": "セクション見出し",
+            "name": "flow_title",
+            "type": "text",
+            "default_value": "ご依頼の流れ"
+        },
+        {
+            "key": "field_steps",
+            "label": "ステップ一覧",
+            "name": "steps",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "ステップを追加",
+            "sub_fields": [
+                {
+                    "key": "field_step_title",
+                    "label": "タイトル",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_step_description",
+                    "label": "説明",
+                    "name": "description",
+                    "type": "textarea",
+                    "rows": 2
+                }
+            ]
+        },
+        {
+            "key": "field_tab_cases",
+            "label": "サービス例",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_cases_title",
+            "label": "セクション見出し",
+            "name": "cases_title",
+            "type": "text",
+            "default_value": "サービス例"
+        },
+        {
+            "key": "field_cases",
+            "label": "サービス例一覧",
+            "name": "cases",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "サービス例を追加",
+            "sub_fields": [
+                {
+                    "key": "field_case_image",
+                    "label": "画像",
+                    "name": "image",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "medium"
+                },
+                {
+                    "key": "field_case_image_url",
+                    "label": "画像URL（フォールバック）",
+                    "name": "image_url",
+                    "type": "url"
+                },
+                {
+                    "key": "field_case_caption",
+                    "label": "キャプション",
+                    "name": "caption",
+                    "type": "text"
+                },
+                {
+                    "key": "field_case_layout",
+                    "label": "レイアウト",
+                    "name": "layout",
+                    "type": "select",
+                    "choices": {
+                        "half": "半分幅",
+                        "full": "全幅"
+                    },
+                    "default_value": "half"
+                }
+            ]
+        },
+        {
+            "key": "field_tab_contact",
+            "label": "お問い合わせ",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_contact_title",
+            "label": "見出し",
+            "name": "contact_title",
+            "type": "text",
+            "default_value": "お問い合わせ"
+        },
+        {
+            "key": "field_contact_subtitle",
+            "label": "説明文",
+            "name": "contact_subtitle",
+            "type": "textarea",
+            "rows": 2,
+            "instructions": "HTMLタグ使用可"
+        },
+        {
+            "key": "field_contact_phone_guidance",
+            "label": "電話案内テキスト",
+            "name": "contact_phone_guidance",
+            "type": "text",
+            "default_value": "お電話でのお問い合わせ"
+        },
+        {
+            "key": "field_form_fields",
+            "label": "フォーム項目",
+            "name": "form_fields",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "フォーム項目を追加",
+            "sub_fields": [
+                {
+                    "key": "field_form_label",
+                    "label": "ラベル",
+                    "name": "label",
+                    "type": "text"
+                },
+                {
+                    "key": "field_form_type",
+                    "label": "タイプ",
+                    "name": "type",
+                    "type": "select",
+                    "choices": {
+                        "text": "テキスト",
+                        "email": "メールアドレス",
+                        "tel": "電話番号",
+                        "textarea": "テキストエリア",
+                        "select": "セレクトボックス",
+                        "radio": "ラジオボタン",
+                        "checkbox": "チェックボックス"
+                    },
+                    "default_value": "text"
+                },
+                {
+                    "key": "field_form_placeholder",
+                    "label": "プレースホルダー",
+                    "name": "placeholder",
+                    "type": "text"
+                },
+                {
+                    "key": "field_form_required",
+                    "label": "必須",
+                    "name": "required",
+                    "type": "true_false",
+                    "default_value": 0,
+                    "ui": 1
+                },
+                {
+                    "key": "field_form_options",
+                    "label": "選択肢（1行に1つ）",
+                    "name": "options",
+                    "type": "textarea",
+                    "rows": 3,
+                    "instructions": "select/radio/checkboxの場合に使用",
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_form_type",
+                                "operator": "==",
+                                "value": "select"
+                            }
+                        ],
+                        [
+                            {
+                                "field": "field_form_type",
+                                "operator": "==",
+                                "value": "radio"
+                            }
+                        ],
+                        [
+                            {
+                                "field": "field_form_type",
+                                "operator": "==",
+                                "value": "checkbox"
+                            }
+                        ]
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_tab_form_settings",
+            "label": "フォーム送信設定",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_form_recipient_email",
+            "label": "受信メールアドレス",
+            "name": "form_recipient_email",
+            "type": "email",
+            "required": 1,
+            "instructions": "お問い合わせ内容がこのアドレスに送信されます"
+        },
+        {
+            "key": "field_form_email_subject",
+            "label": "メール件名",
+            "name": "form_email_subject",
+            "type": "text",
+            "default_value": "【お問い合わせ】ホームページより"
+        },
+        {
+            "key": "field_form_success_message",
+            "label": "送信完了メッセージ",
+            "name": "form_success_message",
+            "type": "textarea",
+            "rows": 2,
+            "default_value": "お問い合わせありがとうございます。\n内容を確認次第、ご連絡いたします。"
+        },
+        {
+            "key": "field_form_submit_text",
+            "label": "送信ボタンテキスト",
+            "name": "form_submit_text",
+            "type": "text",
+            "default_value": "送信する"
+        },
+        {
+            "key": "field_tab_footer",
+            "label": "フッター",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_footer_tagline",
+            "label": "フッタータグライン",
+            "name": "footer_tagline",
+            "type": "text"
+        },
+        {
+            "key": "field_sns_facebook",
+            "label": "Facebook URL",
+            "name": "sns_facebook",
+            "type": "url"
+        },
+        {
+            "key": "field_sns_twitter",
+            "label": "X (Twitter) URL",
+            "name": "sns_twitter",
+            "type": "url"
+        },
+        {
+            "key": "field_sns_instagram",
+            "label": "Instagram URL",
+            "name": "sns_instagram",
+            "type": "url"
+        },
+        {
+            "key": "field_sns_youtube",
+            "label": "YouTube URL",
+            "name": "sns_youtube",
+            "type": "url"
+        },
+        {
+            "key": "field_sns_tiktok",
+            "label": "TikTok URL",
+            "name": "sns_tiktok",
+            "type": "url"
+        },
+        {
+            "key": "field_bottom_bar_email_label",
+            "label": "メールボタン上ラベル",
+            "name": "bottom_bar_email_label",
+            "type": "text",
+            "default_value": "24時間受付"
+        },
+        {
+            "key": "field_bottom_bar_email_text",
+            "label": "メールボタンテキスト",
+            "name": "bottom_bar_email_text",
+            "type": "text",
+            "default_value": "メールで相談"
+        },
+        {
+            "key": "field_bottom_bar_phone_label",
+            "label": "電話ボタン上ラベル",
+            "name": "bottom_bar_phone_label",
+            "type": "text",
+            "default_value": "今すぐ電話"
+        },
+        {
+            "key": "field_bottom_bar_phone_text",
+            "label": "電話ボタンテキスト",
+            "name": "bottom_bar_phone_text",
+            "type": "text",
+            "default_value": "電話で相談"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-lp.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content",
+        "excerpt",
+        "discussion",
+        "comments",
+        "revisions",
+        "slug",
+        "author",
+        "format",
+        "page_attributes",
+        "featured_image",
+        "categories",
+        "tags",
+        "send-trackbacks"
+    ],
+    "active": true,
+    "description": "LPテンプレート用のカスタムフィールド"
+}
