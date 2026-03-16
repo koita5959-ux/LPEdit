@@ -68,7 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (pageName === 'トップページ') {
         sendLog('トップページ表示');
     } else if (pageName === '作成・編集選択') {
-        sendLog('作成編集ページ表示');
+        sendLog('作成・修正選択ページ表示');
+    } else if (pageName === 'エディター編集・登録ページ') {
+        sendLog('エディター編集・登録ページ表示');
     }
 
     // フッター: Tel・HP・Mailリンク

@@ -117,7 +117,7 @@ function lp_editor_get_current_page_name()
         return '作成・編集選択';
     }
     if ($template === 'page-editor.php' || is_page('editor')) {
-        return 'Editor画面';
+        return 'エディター編集・登録ページ';
     }
     if (is_singular('lp')) {
         $post = get_queried_object();
@@ -237,7 +237,7 @@ function lp_editor_send_access_log_mail($page_name, $action = 'ページ表示',
  */
 function lp_editor_send_action_log_mail($action_name, $lp_id = '', $extra = array())
 {
-    $page_name = $extra['page_name'] ?? 'Editor画面';
+    $page_name = $extra['page_name'] ?? 'エディター編集・登録ページ';
     $context = array(
         'lp_id'       => $lp_id,
         'screen_size' => $extra['screen_size'] ?? '(未取得)',
