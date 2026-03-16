@@ -64,9 +64,11 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (e) {}
     }
 
-    // トップページのみ「トップページ表示」通知を送信
+    // ページ表示通知を送信
     if (pageName === 'トップページ') {
         sendLog('トップページ表示');
+    } else if (pageName === '作成・編集選択') {
+        sendLog('作成編集ページ表示');
     }
 
     // フッター: Tel・HP・Mailリンク

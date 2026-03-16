@@ -526,7 +526,7 @@
         } catch (e) {}
     }
     document.addEventListener('DOMContentLoaded', function() {
-        sendPublicAccessLog('ページ表示');
+        sendPublicAccessLog('<?php echo esc_js($_is_template_lp ? "テンプレートページ表示" : "ページ表示"); ?>');
     });
     </script>
 

@@ -131,7 +131,7 @@ $select_url = home_url('/select/');
                 </div>
                 <div class="step-body">
                     <span class="step-number">4</span>
-                    <h3 class="step-heading">編集したいときは？</h3>
+                    <h3 class="step-heading">公開後の修正・編集がしたいとき</h3>
                     <p class="step-text">メールアドレスを入力するだけ。編集用URLがメールで届きます。ページIDを覚えておく必要はありません。</p>
                 </div>
             </div>
@@ -176,6 +176,15 @@ $select_url = home_url('/select/');
                 <div class="target-body">
                     <p class="target-heading">費用をかけずに</p>
                     <p class="target-sub">始めたい</p>
+                </div>
+            </div>
+            <div class="target-card">
+                <div class="target-thumb">
+                    <img src="<?php echo esc_url($theme_uri . '/assets/images/kn_05.png'); ?>" alt="PC・スマホ対応ページのイメージ" class="target-thumb__img">
+                </div>
+                <div class="target-body">
+                    <p class="target-heading">PC表示・スマホ表示に対応した</p>
+                    <p class="target-sub">ページでスポット的な業務をアピールできる</p>
                 </div>
             </div>
         </div>
