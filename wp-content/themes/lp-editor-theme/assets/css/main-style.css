@@ -705,6 +705,13 @@ img {
   border-radius: 2px;
 }
 
+.section-lead {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 32px;
+}
+
 /* ================================================
    テンプレートプレビュー
    ================================================ */

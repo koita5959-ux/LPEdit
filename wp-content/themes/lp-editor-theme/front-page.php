@@ -141,6 +141,7 @@ $select_url = home_url('/select/');
     <!-- ===== こんな方におすすめ ===== -->
     <section class="target">
         <h2 class="section-title">こんな方に選ばれています</h2>
+        <p class="section-lead">PC表示・スマホ表示に対応したページでスポット的な業務をアピールできる</p>
         <div class="target-grid">
             <div class="target-card">
                 <div class="target-thumb">
@@ -176,15 +177,6 @@ $select_url = home_url('/select/');
                 <div class="target-body">
                     <p class="target-heading">費用をかけずに</p>
                     <p class="target-sub">始めたい</p>
-                </div>
-            </div>
-            <div class="target-card">
-                <div class="target-thumb">
-                    <img src="<?php echo esc_url($theme_uri . '/assets/images/kn_05.png'); ?>" alt="PC・スマホ対応ページのイメージ" class="target-thumb__img">
-                </div>
-                <div class="target-body">
-                    <p class="target-heading">PC表示・スマホ表示に対応した</p>
-                    <p class="target-sub">ページでスポット的な業務をアピールできる</p>
                 </div>
             </div>
         </div>
