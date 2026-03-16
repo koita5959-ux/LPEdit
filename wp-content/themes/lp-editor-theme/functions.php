@@ -27,6 +27,11 @@ require_once get_template_directory() . '/inc/api.php';
 require_once get_template_directory() . '/inc/contact.php';
 require_once get_template_directory() . '/inc/access-log.php';
 
+// Stripe設定（Git管理外）
+if (file_exists(get_template_directory() . '/stripe-config.php')) {
+    require_once get_template_directory() . '/stripe-config.php';
+}
+
 /**
  * 初期テンプレートの管理画面アクセス時にのみ自動作成する。
  * フロントアクセス時の副作用を避けるため、管理画面の確認操作のみに限定する。

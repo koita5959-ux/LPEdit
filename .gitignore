@@ -7,6 +7,13 @@ wp-content/ai1wm-backups/
 # WordPress アップグレード一時ファイル
 wp-content/upgrade/
 
+# Stripe設定（APIキーを含むためGit管理外）
+wp-content/themes/lp-editor-theme/stripe-config.php
+
+# Composer関連（サイズが大きいためGit管理外）
+wp-content/themes/lp-editor-theme/vendor/
+wp-content/themes/lp-editor-theme/composer.phar
+
 # OS・エディタ生成ファイル
 .DS_Store
 Thumbs.db

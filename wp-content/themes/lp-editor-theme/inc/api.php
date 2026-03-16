@@ -48,6 +48,20 @@ function lp_editor_register_rest_routes()
         'callback'            => 'lp_editor_rest_access_log',
         'permission_callback' => '__return_true',  // アクセスログ記録のみのため認証不要
     ));
+
+    // 決済: PaymentIntent作成
+    register_rest_route('lp-editor/v1', '/create-payment-intent', array(
+        'methods'             => 'POST',
+        'callback'            => 'lp_editor_rest_create_payment_intent',
+        'permission_callback' => '__return_true',
+    ));
+
+    // 決済: Stripe Webhook受信
+    register_rest_route('lp-editor/v1', '/stripe-webhook', array(
+        'methods'             => 'POST',
+        'callback'            => 'lp_editor_rest_stripe_webhook',
+        'permission_callback' => '__return_true',
+    ));
 }
 add_action('rest_api_init', 'lp_editor_register_rest_routes');
 
@@ -668,4 +682,123 @@ function lp_editor_rest_access_log($request)
     }
 
     return lp_editor_api_success(array('message' => 'logged'));
+}
+
+/**
+ * REST API ハンドラー: PaymentIntent作成
+ */
+function lp_editor_rest_create_payment_intent($request)
+{
+    $data  = $request->get_json_params();
+    $email = sanitize_email($data['email'] ?? '');
+
+    if (! is_email($email)) {
+        return lp_editor_api_error('有効なメールアドレスを入力してください', 400, 'payment_email_invalid');
+    }
+
+    if (! defined('LP_EDITOR_STRIPE_SK') || LP_EDITOR_STRIPE_SK === '' || LP_EDITOR_STRIPE_SK === 'sk_test_ユーザーから受け取った値') {
+        return lp_editor_api_error('決済設定が未完了です', 500, 'payment_config_missing');
+    }
+
+    require_once get_template_directory() . '/vendor/autoload.php';
+
+    try {
+        \Stripe\Stripe::setApiKey(LP_EDITOR_STRIPE_SK);
+
+        $paymentIntent = \Stripe\PaymentIntent::create(array(
+            'amount'                    => 10000,
+            'currency'                  => 'jpy',
+            'automatic_payment_methods' => array('enabled' => true),
+            'receipt_email'             => $email,
+            'metadata'                  => array(
+                'service' => 'lp-option',
+                'email'   => $email,
+            ),
+        ));
+
+        lp_editor_log_event('info', 'payment_intent_created', array('email' => $email));
+
+        return lp_editor_api_success(array(
+            'clientSecret' => $paymentIntent->client_secret,
+            'pk'           => LP_EDITOR_STRIPE_PK,
+        ));
+    } catch (\Stripe\Exception\ApiErrorException $e) {
+        return lp_editor_api_error($e->getMessage(), 500, 'stripe_error');
+    }
+}
+
+/**
+ * REST API ハンドラー: Stripe Webhook受信
+ */
+function lp_editor_rest_stripe_webhook($request)
+{
+    $payload   = file_get_contents('php://input');
+    $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'] ?? '';
+
+    require_once get_template_directory() . '/vendor/autoload.php';
+
+    $webhook_secret = defined('LP_EDITOR_STRIPE_WEBHOOK_SECRET') ? LP_EDITOR_STRIPE_WEBHOOK_SECRET : '';
+
+    if ($webhook_secret === '') {
+        // テスト環境用: 署名検証なしで直接パース
+        lp_editor_log_event('warning', 'webhook_no_signature_verification', array());
+        $event = json_decode($payload, false);
+        if (! $event || ! isset($event->type)) {
+            return lp_editor_api_error('無効なペイロードです', 400, 'webhook_invalid_payload');
+        }
+    } else {
+        try {
+            $event = \Stripe\Webhook::constructEvent($payload, $sig_header, $webhook_secret);
+        } catch (\UnexpectedValueException $e) {
+            return lp_editor_api_error('無効なペイロードです', 400, 'webhook_invalid_payload');
+        } catch (\Stripe\Exception\SignatureVerificationException $e) {
+            lp_editor_log_event('warning', 'webhook_signature_failed', array('message' => $e->getMessage()));
+            return lp_editor_api_error('署名検証失敗', 403, 'webhook_signature_failed');
+        }
+    }
+
+    if ($event->type === 'payment_intent.succeeded') {
+        $pi     = $event->data->object;
+        $email  = $pi->metadata->email ?? '';
+        $id     = $pi->id ?? '';
+        $amount = $pi->amount ?? 0;
+
+        // 御社向け通知メール
+        $admin_subject = '【LP Editor】オプション発注がありました';
+        $admin_body  = "LP Editor オプションサービスの発注がありました。\n\n";
+        $admin_body .= "発注者メールアドレス: " . $email . "\n";
+        $admin_body .= "決済ID: " . $id . "\n";
+        $admin_body .= "金額: ¥" . number_format($amount) . "\n";
+        $admin_body .= "日時: " . wp_date('Y年m月d日 H:i') . "\n\n";
+        $admin_body .= lp_editor_get_mail_signature_block();
+
+        $headers = array(
+            'Content-Type: text/plain; charset=UTF-8',
+            'From: ' . LP_EDITOR_MAIL_FROM_NAME . ' <' . LP_EDITOR_MAIL_FROM . '>',
+        );
+
+        wp_mail(LP_EDITOR_MAIL_FROM, $admin_subject, $admin_body, $headers);
+
+        // 発注者向け確認メール
+        if (is_email($email)) {
+            $customer_subject = '【LP Editor】ご発注ありがとうございます';
+            $customer_body  = "この度はLP Editor オプションサービスをご利用いただきありがとうございます。\n\n";
+            $customer_body .= "ご発注内容:\n";
+            $customer_body .= "サービス: LP制作代行オプション\n";
+            $customer_body .= "金額: ¥10,000（税込）\n\n";
+            $customer_body .= "担当者より2営業日以内にご連絡いたします。\n";
+            $customer_body .= "ご不明な点がございましたら、お気軽にお問い合わせください。\n\n";
+            $customer_body .= lp_editor_get_mail_signature_block();
+
+            wp_mail($email, $customer_subject, $customer_body, $headers);
+        }
+
+        lp_editor_log_event('info', 'payment_succeeded', array(
+            'email'             => $email,
+            'payment_intent_id' => $id,
+            'amount'            => $amount,
+        ));
+    }
+
+    return lp_editor_api_success(array('received' => true));
 }

@@ -1957,3 +1957,271 @@ img {
   background: #fce4ec;
   color: #c62828;
 }
+
+/* ================================================
+   オプションページ（決済）
+   ================================================ */
+.option-container {
+  display: flex;
+  gap: 40px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+.option-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.option-payment {
+  flex: 0 0 400px;
+  background: var(--bg-white);
+  border: 1px solid #e0ddd5;
+  border-radius: 12px;
+  padding: 32px 28px;
+  align-self: flex-start;
+  position: sticky;
+  top: 80px;
+}
+
+/* --- 左ブロック: サービス説明 --- */
+.option-info__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.option-info__desc {
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.option-info__price {
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.option-info__price-amount {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--text-dark);
+}
+
+.option-info__price-unit {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.option-info__price-tax {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+/* ワークフロー図 */
+.option-workflow {
+  margin-bottom: 28px;
+}
+
+.option-workflow__step-box {
+  background: var(--bg-warm);
+  border: 1px solid #d9d4c8;
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.option-workflow__arrow {
+  text-align: center;
+  color: var(--navy-300);
+  font-size: 1.2rem;
+  margin: 8px 0;
+}
+
+.option-workflow__note {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 6px;
+  text-align: center;
+}
+
+.option-info__notice {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+.option-info__contact-link {
+  display: inline-block;
+  background: var(--navy-700);
+  color: #fff;
+  padding: 12px 40px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.option-info__contact-link:hover {
+  background: var(--navy-500);
+  opacity: 1;
+}
+
+/* --- 右ブロック: 決済部 --- */
+.payment-step__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.payment-step__price {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+.payment-step__price-unit {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.payment-step__price-tax {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+.payment-step__label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-mid);
+  margin-bottom: 6px;
+}
+
+.payment-step__input {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: var(--font-family);
+  margin-bottom: 4px;
+}
+
+.payment-step__input:focus {
+  outline: none;
+  border-color: var(--navy-500);
+  box-shadow: 0 0 0 2px rgba(46, 90, 142, 0.15);
+}
+
+.payment-step__error {
+  color: #c62828;
+  font-size: 0.8rem;
+  min-height: 1.2em;
+  margin-bottom: 12px;
+}
+
+.payment-step__btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-family);
+  color: #fff;
+  background: var(--navy-700);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.payment-step__btn:hover:not(:disabled) {
+  background: var(--navy-500);
+}
+
+.payment-step__btn:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.payment-step__btn--pay {
+  margin-top: 16px;
+  background: var(--navy-900);
+}
+
+.payment-step__btn--pay:hover:not(:disabled) {
+  background: var(--navy-700);
+}
+
+.payment-step__email-display {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  margin-bottom: 16px;
+}
+
+.payment-step__change-link {
+  font-size: 0.8rem;
+  margin-left: 8px;
+  color: var(--navy-500);
+}
+
+#payment-element {
+  margin-bottom: 8px;
+}
+
+/* ステップ3: 完了 */
+.payment-step__complete {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.payment-step__complete-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+}
+
+.payment-step__complete .payment-step__title {
+  margin-bottom: 12px;
+}
+
+.payment-step__complete p {
+  font-size: 0.9rem;
+  color: var(--text-mid);
+  margin-bottom: 6px;
+}
+
+/* --- レスポンシブ --- */
+@media (max-width: 768px) {
+  .option-container {
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px 16px 40px;
+  }
+
+  .option-payment {
+    flex: none;
+    width: 100%;
+    position: static;
+  }
+}
